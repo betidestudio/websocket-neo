@@ -1,0 +1,29 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "WebsocketNeo",
+	"Description": "Plugin used for enabling WebSocket Connections in Blueprint",
+	"Category": "NEO",
+	"CreatedBy": "Betide Studio",
+	"CreatedByURL": "https://betide.studio",
+	"DocsURL": "https://plugins.unrealengineneo.com/websocket-neo-documentation/",
+	"MarketplaceURL": "com.epicgames.launcher://ue/marketplace/product/3f6d92ac6dcf4f8c870eef371411c121",
+	"SupportURL": "https://discord.gg/betidestudio",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"EngineVersion": "5.1",
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "WebsocketNeo",
+			"Type": "Runtime",
+			"LoadingPhase": "Default",
+			"WhitelistPlatforms": [
+				"Win64",
+				"Win32"
+			]
+		}
+	]
+}

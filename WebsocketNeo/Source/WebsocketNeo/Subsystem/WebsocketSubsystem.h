@@ -25,6 +25,26 @@ public:
 	UPROPERTY(BlueprintAssignable)
 	FWebsocketSubsystem ResponseOnMessage;
 
+	void OnConnected() const
+	{
+		ResponseOnConnected.Broadcast(true, "Successfully connected");
+	}
+
+	void OnConnectionError(const FString& Error) const
+	{
+		ResponseOnConnected.Broadcast(false, "Error + %S" + Error);
+	}
+
+	void OnMessageReceived(const FString& MessageString)
+	{
+		ResponseOnMessage.Broadcast(true, MessageString);
+	}
+
+	void F_OnMessageSent(const FString& MessageString)
+	{
+		
+	}
+
 	//Functions for WebSocket ->
 	UFUNCTION(BlueprintCallable, Category="WebSocket Functions")
 	void ConnectWebSocket(FString WebSocketURL);

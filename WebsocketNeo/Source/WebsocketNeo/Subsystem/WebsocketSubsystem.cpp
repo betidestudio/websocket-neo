@@ -12,25 +12,11 @@ void UWebsocketSubsystem::ConnectWebSocket(FString WebSocketURL)
 		FModuleManager::Get().LoadModule("WebSockets");
 	}
 	WebSocket = FWebSocketsModule::Get().CreateWebSocket(WebSocketURL);
-	WebSocket->OnConnected().AddLambda([&]()
-	{
-		ResponseOnConnected.Broadcast(true, "Successfully connected");
-	});
-	WebSocket->OnConnectionError().AddLambda([&](const FString& Error)
-	{
-		ResponseOnConnected.Broadcast(false, "Error + %S" + Error);
-	});
-	WebSocket->OnMessage().AddLambda([&](const FString& MessageString)
-{
-		
-		ResponseOnMessage.Broadcast(true, MessageString);
-});
+	WebSocket->OnConnected().AddUObject(this, &UWebsocketSubsystem::OnConnected);
+	WebSocket->OnConnectionError().AddUObject(this, &UWebsocketSubsystem::OnConnectionError);
+	WebSocket->OnMessage().AddUObject(this, &UWebsocketSubsystem::OnMessageReceived);
+	WebSocket->OnMessageSent().AddUObject(this, &UWebsocketSubsystem::F_OnMessageSent);
 
-	WebSocket->OnMessageSent().AddLambda([&](const FString& MessageString)
-	{
-		ResponseOnMessage.Broadcast(true, MessageString);
-	});
-	
 	WebSocket->Connect();
 }
 
@@ -92,5 +78,4 @@ void UWebsocketSubsystem::SendWebSocketMessage(FString Message)
 		ResponseOnMessage.Broadcast(false,"Connection not valid");
 	}
 }
-
 
